@@ -38,6 +38,7 @@ html, body {
   border-radius: 5px;
   text-align: right;
   background: rgba(172, 170, 170, 0.759);
+  overflow: auto;
 }
 
 
