@@ -17,8 +17,12 @@ Array.from(buttons).forEach((button) => {
         string = "";
         inputField.value = string;
       } else if (e.target.innerHTML == "DEL") {
-        string = string.substring(0, string.length - 1);
-        inputField.value = string;
+        let cursorPos = inputField.selectionStart; 
+        if (cursorPos > 0) {
+          string = string.slice(0, cursorPos - 1) + string.slice(cursorPos);
+          inputField.value = string;
+          inputField.setSelectionRange(cursorPos - 1, cursorPos - 1); 
+        }
       } else if (e.target.innerHTML == "%") {
         if (string) {
           string = (eval(string) / 100).toString();
@@ -26,8 +30,10 @@ Array.from(buttons).forEach((button) => {
         }
       } else {
         if (string.length < 22) {
-          string = string + e.target.innerHTML;
-          inputField.value = string;
+          let cursorPos = inputField.selectionStart;
+          string = string.slice(0, cursorPos) + e.target.innerHTML + string.slice(cursorPos); 
+          inputField.value = string; 
+          inputField.setSelectionRange(cursorPos + 1, cursorPos + 1); 
         }
       }
       inputField.scrollLeft = inputField.scrollWidth; 
